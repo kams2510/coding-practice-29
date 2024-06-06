@@ -1,22 +1,29 @@
 // Write your JS code here
-import {Redirect} from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-const Login = () => {
+const Login = props => {
   const toNavHomePage = async () => {
     const url = 'https://apis.ccbp.in/login'
-    const jwtToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwicm9sZSI6IlBSSU1FX1VTRVIiLCJpYXQiOjE2MTk2Mjg2MTN9.nZDlFsnSWArLKKeF0QbmdVfLgzUbx1BGJsqa2kc_21Y'
+    const userDetail = {
+      username: 'rahul',
+      password: 'rahul@2021',
+    }
     const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
+      method: 'POST',
+      body: JSON.stringify(userDetail),
     }
 
     console.log('logged in paa')
     const response = await fetch(url, options)
+    const data = await response.json()
+    if (response.ok) {
+      const {history} = props
+      history.replace('/')
+      Cookies.set('jwt_token', data.jwt_token, {expires: 5, path: '/'})
+    }
     console.log(response)
+    console.log(data)
   }
   return (
     <div>
@@ -28,4 +35,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default withRouter(Login)

@@ -1,5 +1,6 @@
 // Write your JS code here
 import Cookies from 'js-cookie'
+import {withRouter} from 'react-router-dom'
 
 const LogoutButton = props => {
   const onClickBtn = () => {
@@ -14,4 +15,4 @@ const LogoutButton = props => {
   )
 }
 
-export default LogoutButton
+export default withRouter(LogoutButton)
