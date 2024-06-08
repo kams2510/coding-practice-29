@@ -1,6 +1,7 @@
 // Write your JS code here
 import {Redirect, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
+import './index.css'
 
 const Login = props => {
   const toNavHomePage = async () => {
@@ -20,7 +21,7 @@ const Login = props => {
     if (response.ok) {
       const {history} = props
       history.replace('/')
-      Cookies.set('jwt_token', data.jwt_token, {expires: 5, path: '/'})
+      Cookies.set('jwt_token', data.jwt_token, {expires: 5})
     }
     console.log(response)
     console.log(data)
